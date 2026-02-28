@@ -35,6 +35,44 @@
   color: #ff7c95;
 }
 
+.progress-entry__rag {
+  width: 100%;
+  margin: 0;
+  padding: 0.7rem 0.9rem;
+  border-radius: 10px;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.08);
+  color: #dbe7ff;
+  font-size: 0.93rem;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.progress-entry__rag span {
+  color: #7dd3fc;
+  font-weight: 700;
+}
+
+.progress-entry__rag-btn {
+  margin-left: auto;
+  border: 1px solid rgba(56, 189, 248, 0.55);
+  background: linear-gradient(140deg, rgba(56, 189, 248, 0.28), rgba(37, 99, 235, 0.14));
+  color: var(--text-primary);
+  padding: 0.38rem 0.72rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.progress-entry__rag-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
 .progress-entry__charts {
   width: 100%;
   display: grid;

@@ -14,6 +14,7 @@ import {
 import { Bar, Line } from "react-chartjs-2";
 import { fetchProgress } from "../../services/progress.service";
 import type { ProgressRecord } from "../../types/progress.types";
+import { askRag } from "../../services/rag.service";
 import "./Progress.css";
 
 ChartJS.register(
@@ -59,6 +60,9 @@ const Progress = () => {
   const navigate = useNavigate();
   const [history, setHistory] = useState<ProgressRecord[]>([]);
   const [error, setError] = useState("");
+  const [ragLine, setRagLine] = useState("");
+  const [ragLoading, setRagLoading] = useState(false);
+  const [ragCooldownUntil, setRagCooldownUntil] = useState<number>(0);
 
   useEffect(() => {
     const load = async () => {
@@ -91,6 +95,40 @@ const Progress = () => {
       ),
     [sorted]
   );
+
+  const latest = useMemo(() => {
+    if (sorted.length === 0) return null;
+    return sorted[sorted.length - 1];
+  }, [sorted]);
+
+  const generateRagLine = async () => {
+    if (!latest || ragLoading) return;
+
+    const now = Date.now();
+    if (now < ragCooldownUntil) return;
+
+    setRagLoading(true);
+    try {
+      const message = [
+        "Give exactly one concise actionable line based on my metrics.",
+        `Weight: ${latest.weight ?? "N/A"} kg`,
+        `Body Fat: ${latest.bodyFat ?? "N/A"} %`,
+        `Muscle Mass: ${latest.muscleMass ?? "N/A"} kg`,
+        `Creatine Intake: ${latest.creatineIntake ?? "N/A"} g`,
+        `Workout Frequency: ${latest.workoutFrequency ?? "N/A"} days/week`,
+      ].join("\n");
+      const response = await askRag(message);
+      setRagLine((response.answer || "").trim());
+    } catch (err: any) {
+      const text = String(err?.message ?? "");
+      const match = text.match(/retry in\s+(\d+)s/i);
+      const retrySeconds = match ? Number(match[1]) : 20;
+      setRagCooldownUntil(Date.now() + retrySeconds * 1000);
+      setRagLine(`Rate-limited. Try again in ${retrySeconds}s.`);
+    } finally {
+      setRagLoading(false);
+    }
+  };
 
   const baseOptions = {
     responsive: true,
@@ -263,6 +301,26 @@ const Progress = () => {
         </button>
       </div>
       {error && <p className="progress-entry__error">{error}</p>}
+      {!error && latest && (
+        <div className="progress-entry__rag">
+          <span>RAG Insight:</span>{" "}
+          {ragLoading ? "Generating..." : ragLine || "Click Generate Insight to fetch."}
+          <button
+            type="button"
+            className="progress-entry__rag-btn"
+            onClick={generateRagLine}
+            disabled={
+              ragLoading || Date.now() < ragCooldownUntil
+            }
+          >
+            {ragLoading
+              ? "Generating..."
+              : Date.now() < ragCooldownUntil
+              ? "Please wait..."
+              : "Generate Insight"}
+          </button>
+        </div>
+      )}
       {!error && sorted.length < 2 && (
         <p className="progress-entry__note">
           Add at least 2 progress updates to view charts.
