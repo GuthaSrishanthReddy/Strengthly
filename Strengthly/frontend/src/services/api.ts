@@ -5,23 +5,31 @@ const BASE = configuredBase
 
 export async function api<T>(url: string, options?: RequestInit): Promise<T> {
   const token = localStorage.getItem("token");
-  const res = await fetch(BASE + url, {
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...(options?.headers ?? {}),
-    },
-    ...options,
-  });
+  const isAuthRoute = url.startsWith("/auth/");
+  let res: Response;
+  try {
+    res = await fetch(BASE + url, {
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token && !isAuthRoute ? { Authorization: `Bearer ${token}` } : {}),
+        ...(options?.headers ?? {}),
+      },
+      ...options,
+    });
+  } catch {
+    throw new Error(
+      "Unable to reach API server. Make sure backend is running and API base URL/proxy is configured."
+    );
+  }
 
   if (!res.ok) {
-    let message = "API error";
+    let message = `API error (${res.status})`;
     try {
       const data = await res.json();
       if (data?.message) message = data.message;
     } catch {
-      // ignore parse errors
+      // Non-JSON error body (e.g., HTML from wrong host/proxy)
     }
     throw new Error(message);
   }

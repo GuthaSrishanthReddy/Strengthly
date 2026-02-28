@@ -1,0 +1,45 @@
+.bit-panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background: linear-gradient(150deg, rgba(20, 28, 40, 0.92), rgba(11, 16, 26, 0.9));
+  box-shadow: 0 20px 42px rgba(2, 8, 20, 0.42);
+}
+
+.bit-panel__glow {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  top: -100px;
+  right: -90px;
+  background: radial-gradient(circle, rgba(53, 208, 255, 0.25), transparent 65%);
+  pointer-events: none;
+}
+
+.bit-panel__header {
+  position: relative;
+  z-index: 1;
+  padding: 1.4rem 1.4rem 0.35rem;
+}
+
+.bit-panel__eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  font-size: 0.72rem;
+  color: var(--accent-cyan);
+}
+
+.bit-panel__title {
+  margin: 0.35rem 0 0;
+  font-size: 1.35rem;
+}
+
+.bit-panel__body {
+  position: relative;
+  z-index: 1;
+  padding: 0.95rem 1.4rem 1.4rem;
+}

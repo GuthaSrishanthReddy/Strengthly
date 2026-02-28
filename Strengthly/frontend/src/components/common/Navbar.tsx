@@ -1,12 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
-import ThemeToggle from "./ThemeToggle";
 
 import "./Navbar.css";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const homePath = user?.role === "TRAINER" ? "/trainer/home" : "/user/home";
 
   const handleLogout = () => {
     logout();
@@ -17,24 +17,25 @@ const Navbar = () => {
     <nav className="navbar">
       {!user && (
         <Link to="/" className="navbar__logo">
-          FitnessTracker
+          Strengthly
         </Link>
       )}
       {user && (
-        <Link to="/user/plan" className="navbar__logo">
-          FitnessTracker
+        <Link to={homePath} className="navbar__logo">
+          Strengthly
         </Link>
       )}
 
       <div className="navbar__links">
         {!user && (
-          <>
+          <p className="navbar__hint">
             Login or Signup to access features
-          </>
+          </p>
         )}
 
         {user?.role === "USER" && (
           <>
+            <Link to="/user/home">Home</Link>
             <Link to="/user/plan">Your Plan</Link>
             <Link to="/user/progress">Progress</Link>
             <Link to="/user/my-trainer">Assigned Trainer</Link>
@@ -45,6 +46,7 @@ const Navbar = () => {
 
         {user?.role === "TRAINER" && (
           <>
+            <Link to="/trainer/home">Home</Link>
             <Link to="/trainer/dashboard">Dashboard</Link>
             <Link to="/trainer/clients">My Clients</Link>
             <Link to="/trainer/explore-clients">Explore Clients</Link>
@@ -56,7 +58,6 @@ const Navbar = () => {
       </div>
 
       <div className="navbar__actions">
-        <ThemeToggle />
         {user && <button onClick={handleLogout}>Logout</button>}
       </div>
     </nav>

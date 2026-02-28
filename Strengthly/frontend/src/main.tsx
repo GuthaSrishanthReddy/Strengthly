@@ -19,3 +19,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     </BrowserRouter>
   </React.StrictMode>
 );
+
+// Remove preload overlay only after initial app paint.
+const loadingEl = document.getElementById("app-loading");
+if (loadingEl) {
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      loadingEl.remove();
+    });
+  });
+}

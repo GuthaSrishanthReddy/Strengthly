@@ -32,7 +32,7 @@ const Signup = () => {
         localStorage.setItem("token", (res as any).token);
       }
 
-      navigate(role === "USER" ? "/user/progress" : "/trainer/clients");
+      navigate(role === "USER" ? "/user/home" : "/trainer/home");
     } catch (err: any) {
       setError(err.message || "Signup failed");
     } finally {
@@ -42,51 +42,70 @@ const Signup = () => {
 
   return (
     <div className="signup">
-      <h2 className="signup__title">Create Account</h2>
+      <header className="signup__hero">
+        <p className="signup__eyebrow">Create Account</p>
+        <p className="signup__subtitle">
+          Create your profile and start your training workflow in one place.
+        </p>
+      </header>
 
-      <form onSubmit={handleSubmit} className="signup__form">
-        <input
-          type="text"
-          placeholder="Full name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
+      <section className="signup__content" aria-label="Create account form">
+        <form onSubmit={handleSubmit} className="signup__form">
+          <label>
+            Full name
+            <input
+              type="text"
+              placeholder="Your full name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </label>
 
-        <input
-          type="email"
-          placeholder="Email address"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+          <label>
+            Email
+            <input
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+          <label>
+            Password
+            <input
+              type="password"
+              placeholder="Minimum 6 characters"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
 
-        <select
-          value={role}
-          onChange={(e) => setRole(e.target.value as "USER" | "TRAINER")}
-        >
-          <option value="USER">User</option>
-          <option value="TRAINER">Trainer</option>
-        </select>
+          <label>
+            Role
+            <select
+              value={role}
+              onChange={(e) => setRole(e.target.value as "USER" | "TRAINER")}
+            >
+              <option value="USER">User</option>
+              <option value="TRAINER">Trainer</option>
+            </select>
+          </label>
 
-        {error && <p className="signup__error">{error}</p>}
+          {error && <p className="signup__error">{error}</p>}
 
-        <button type="submit" disabled={loading}>
-          {loading ? "Creating..." : "Sign Up"}
-        </button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Creating..." : "Create account"}
+          </button>
 
-        <div className="signup__footer">
-          Already have an account? <Link to="/login">Login</Link>
-        </div>
-      </form>
+          <div className="signup__footer">
+            Already have an account? <Link to="/login">Login</Link>
+          </div>
+        </form>
+      </section>
     </div>
   );
 };

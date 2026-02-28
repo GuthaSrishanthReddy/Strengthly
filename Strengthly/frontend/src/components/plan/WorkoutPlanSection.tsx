@@ -84,12 +84,6 @@ const WorkoutPlanSection = ({
                 <tbody>
                   {sortedPlan.map((dayPlan) => {
                     const workouts = dayPlan.workouts ?? [];
-                    const workoutText =
-                      workouts.length === 0
-                        ? "N/A"
-                        : workouts.length === 1
-                        ? workouts[0].workoutName
-                        : `${workouts[0].workoutName} +${workouts.length - 1} more`;
                     const isActive = selectedDay === dayPlan.day;
 
                     return (

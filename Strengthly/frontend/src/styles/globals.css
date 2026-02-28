@@ -7,6 +7,13 @@
     padding: 0;
 }
 
+html,
+body,
+#root {
+    min-height: 100%;
+    background-color: #05070c !important;
+}
+
 body {
     margin: 0;
     font-family: var(--font-main);
@@ -15,8 +22,11 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     background-image:
-        radial-gradient(circle at 15% 50%, rgba(0, 240, 255, 0.05), transparent 25%),
-        radial-gradient(circle at 85% 30%, rgba(157, 78, 221, 0.05), transparent 25%);
+        linear-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+        radial-gradient(circle at 10% 12%, rgba(53, 208, 255, 0.12), transparent 34%),
+        radial-gradient(circle at 85% 84%, rgba(245, 158, 11, 0.1), transparent 28%);
+    background-size: 28px 28px, 28px 28px, auto, auto;
     background-attachment: fixed;
 }
 
@@ -40,8 +50,37 @@ a {
 button {
     font-family: var(--font-main);
     cursor: pointer;
-    border: none;
-    background: none;
+    border: 1px solid var(--btn-border-color);
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    border-radius: var(--btn-radius);
+    padding: 0.62rem 1.15rem;
+    font-weight: 650;
+    letter-spacing: 0.01em;
+    box-shadow: var(--btn-shadow);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
+}
+
+button:hover:not(:disabled) {
+    transform: translateY(-1px);
+    background: var(--btn-bg-hover);
+    box-shadow: var(--btn-shadow-hover);
+    border-color: color-mix(in srgb, var(--btn-border-color) 55%, var(--accent-cyan));
+}
+
+button:focus-visible {
+    outline: 2px solid var(--btn-focus-ring);
+    outline-offset: 2px;
+}
+
+button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    box-shadow: none;
 }
 
 /* Custom Scrollbar */

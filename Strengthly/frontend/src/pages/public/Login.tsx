@@ -23,7 +23,21 @@ const Login = () => {
     setError("");
 
     try {
-      const res: AuthResponse = await loginApi(email, password);
+      let res: AuthResponse;
+      try {
+        res = await loginApi(email, password);
+      } catch (firstErr: any) {
+        const firstMessage = firstErr?.message || "Login failed";
+        const lowerEmail = email.trim().toLowerCase();
+        const shouldRetryLowercase =
+          firstMessage === "Invalid credentials" && lowerEmail !== email.trim();
+
+        if (!shouldRetryLowercase) {
+          throw firstErr;
+        }
+
+        res = await loginApi(lowerEmail, password);
+      }
 
       // store JWT token
       login(res.token);
@@ -32,45 +46,63 @@ const Login = () => {
       // redirect based on role
 
       if (res.user.role === "USER") {
-        navigate("/user/plan", { replace: true });
+        navigate("/user/home", { replace: true });
       } else {
-        navigate("/trainer/dashboard", { replace: true });
+        navigate("/trainer/home", { replace: true });
       }
 
-    } catch (err) {
-      setError("Invalid email or password");
+    } catch (err: any) {
+      const message = err?.message || "Login failed";
+      setError(
+        message === "Invalid credentials"
+          ? "Invalid email or password"
+          : message
+      );
     }
   };
 
   return (
     <div className="login">
-      <h2 className="login__title">Login</h2>
+      <header className="login__hero">
+        <p className="login__eyebrow">Welcome Back</p>
+        <p className="login__subtitle">
+          Access your plan, update progress, and stay aligned with your trainer from one workspace.
+        </p>
+      </header>
 
-      {error && <p className="login__error">{error}</p>}
+      <section className="login__content" aria-label="Login form">
+        {error && <p className="login__error">{error}</p>}
 
-      <form onSubmit={handleSubmit} className="login__form">
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <form onSubmit={handleSubmit} className="login__form">
+          <label>
+            Email
+            <input
+              type="email"
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+          <label>
+            Password
+            <input
+              type="password"
+              placeholder="Your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
 
-        <button type="submit">Login</button>
+          <button type="submit">Login</button>
 
-        <div className="login__footer">
-          Don't have an account? <Link to="/signup">Sign up</Link>
-        </div>
-      </form>
+          <div className="login__footer">
+            Don't have an account? <Link to="/signup">Sign up</Link>
+          </div>
+        </form>
+      </section>
     </div>
   );
 };

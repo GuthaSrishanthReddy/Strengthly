@@ -1,10 +1,12 @@
 import { api } from "./api";
 import type { AuthResponse } from "../types/auth.types";
 
+const trimEmail = (email: string) => email.trim();
+
 export const loginApi = (email: string, password: string) =>
   api<AuthResponse>("/auth/login", {
     method: "POST",
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email: trimEmail(email), password }),
   });
 
 export const registerApi = (data: {
@@ -15,5 +17,8 @@ export const registerApi = (data: {
 }) =>
   api<AuthResponse>("/auth/register", {
     method: "POST",
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      ...data,
+      email: trimEmail(data.email).toLowerCase(),
+    }),
   });

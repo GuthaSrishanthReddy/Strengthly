@@ -26,9 +26,9 @@ const ProtectedRoute = ({ children, role }: ProtectedRouteProps) => {
   // 🚫 Role mismatch → redirect to correct dashboard
   if (role && user.role !== role) {
     return user.role === "USER" ? (
-      <Navigate to="/user/plan" replace />
+      <Navigate to="/user/home" replace />
     ) : (
-      <Navigate to="/trainer/dashboard" replace />
+      <Navigate to="/trainer/home" replace />
     );
   }
 

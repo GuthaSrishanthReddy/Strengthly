@@ -4,9 +4,19 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      html, body, #root {
+        height: 100%;
+        background: #05070c !important;
+      }
+    </style>
     <title>vite-project</title>
   </head>
-  <body>
+  <body class="dark">
+    <div
+      id="app-loading"
+      style="position:fixed;inset:0;background:#05070c;z-index:2147483647;pointer-events:none"
+    ></div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -17,9 +17,9 @@ const PublicRoute = ({ children }: PublicRouteProps) => {
     // 🔐 If logged in, redirect to their profile page as requested
     if (user) {
         if (user.role === "USER") {
-            return <Navigate to="/user/profile" replace />;
+            return <Navigate to="/user/home" replace />;
         } else {
-            return <Navigate to="/trainer/profile" replace />;
+            return <Navigate to="/trainer/home" replace />;
         }
     }
 

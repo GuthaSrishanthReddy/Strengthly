@@ -2,8 +2,51 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  position: relative;
+  isolation: isolate;
+  background: #05070c;
+}
+
+.public-layout::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.42;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.34) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.34) 1px, transparent 1px);
+  background-size: 42px 42px;
+}
+
+.public-layout__particles {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+
+
+.public-layout__aurora {
+  position: fixed;
+  inset: 0;
+  background: transparent;
+  filter: none;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.public-layout__frame {
+  width: min(1320px, 100%);
+  margin: 0 auto;
+  padding-inline: clamp(0.9rem, 2vw, 1.8rem);
+  position: relative;
+  z-index: 2;
 }
 
 .public-layout__content {
   flex: 1;
+  padding: clamp(1rem, 3vw, 2.4rem) 0 2.4rem;
 }

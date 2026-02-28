@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Navigate, Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import TrainerDashboard from "../pages/trainer/TrainerDashboard";
 import UserLayout from "../layouts/UserLayout";
@@ -19,6 +19,7 @@ import ExploreTrainers from "../pages/user/ExploreTrainers";
 import Profile from "../pages/user/Profile";
 import UserDataForm from "../pages/user/UserDataForm";
 import ChatBotWindow from "../components/chatbot/ChatWindow";
+import UserHome from "../pages/user/UserHome";
 
 /* Trainer */
 import MyClients from "../pages/trainer/MyClients";
@@ -26,6 +27,7 @@ import ExploreClients from "../pages/trainer/ExploreClients";
 import ClientDetails from "../pages/trainer/ClientDetails";
 import MyHistory from "../pages/trainer/MyHistory";
 import TrainerProfile from "../pages/trainer/TrainerProfile";
+import TrainerHome from "../pages/trainer/TrainerHome";
 
 const AppRoutes = () => {
   return (
@@ -71,6 +73,8 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       >
+        <Route index element={<Navigate to="home" replace />} />
+        <Route path="home" element={<UserHome />} />
         <Route path="plan" element={<MyPlan />} />
         <Route path="progress" element={<UpdateProgress />} />
         <Route path="my-trainer" element={<MyTrainer />} />
@@ -98,6 +102,8 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       >
+        <Route index element={<Navigate to="home" replace />} />
+        <Route path="home" element={<TrainerHome />} />
         <Route path="dashboard" element={<TrainerDashboard />} />
         <Route path="clients" element={<MyClients />} />
         <Route path="explore-clients" element={<ExploreClients />} />

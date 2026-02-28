@@ -1,0 +1,9 @@
+@import "../user/UserHome.css";
+
+.role-home--trainer .role-home__slide {
+  background: rgba(8, 15, 25, 0.56);
+}
+
+.role-home--trainer .role-home__slide--hero {
+  background: rgba(10, 18, 30, 0.5);
+}
