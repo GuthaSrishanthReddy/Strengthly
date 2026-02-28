@@ -11,10 +11,12 @@ export const corsConfig: CorsOptions = {
       return callback(null, true);
     }
 
-    // Production frontend domain (add later)
+    // Allow configured production frontend domain
     if (env.NODE_ENV === "production") {
-      // Example:
-      // if (origin === "https://yourdomain.com") return callback(null, true);
+      const frontendUrl = process.env.FRONTEND_URL;
+      if (frontendUrl && origin === frontendUrl) {
+        return callback(null, true);
+      }
     }
 
     callback(new Error("Not allowed by CORS"));
