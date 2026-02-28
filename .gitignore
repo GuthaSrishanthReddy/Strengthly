@@ -1,0 +1,4 @@
+﻿# ML artifacts
+Strengthly/ml-service/artifacts/
+*.joblib
+*.pkl
