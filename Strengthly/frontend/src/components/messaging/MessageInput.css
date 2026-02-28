@@ -1,0 +1,15 @@
+.message-input {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-top: 1px solid #ddd;
+}
+
+.message-input input {
+  flex: 1;
+  padding: 0.5rem;
+}
+
+.message-input button {
+  padding: 0.5rem 1rem;
+}

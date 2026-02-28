@@ -1,0 +1,16 @@
+/* Chatbot global helpers */
+
+.chatbot-hidden {
+  display: none;
+}
+
+.chatbot-visible {
+  display: block;
+}
+
+/* Utility for fullscreen mode (future use) */
+.chatbot-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}

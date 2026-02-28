@@ -1,0 +1,17 @@
+.message-bubble {
+  max-width: 70%;
+  padding: 0.6rem 0.9rem;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.message-bubble--user {
+  background-color: #d1e7ff;
+  align-self: flex-end;
+}
+
+.message-bubble--trainer {
+  background-color: #eaeaea;
+  align-self: flex-start;
+}

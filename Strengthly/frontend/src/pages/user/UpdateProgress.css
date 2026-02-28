@@ -1,0 +1,17 @@
+.update-progress {
+  max-width: 600px;
+  background: var(--bg-surface);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-shadow);
+  margin-top: 1.5rem;
+}
+
+.update-progress__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}

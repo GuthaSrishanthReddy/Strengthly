@@ -1,0 +1,16 @@
+.client-card {
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  background: var(--bg-surface);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.client-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--glow-shadow);
+  border-color: var(--glass-border-hover);
+}

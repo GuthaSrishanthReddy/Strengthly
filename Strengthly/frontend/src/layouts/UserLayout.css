@@ -1,0 +1,20 @@
+.user-layout {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-layout__content {
+  padding: 2.5rem;
+  flex: 1;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.user-layout__content--chat {
+  padding: 0;
+  min-height: calc(100vh - 70px);
+  max-width: 100%;
+}

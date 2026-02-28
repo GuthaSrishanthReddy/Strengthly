@@ -1,0 +1,53 @@
+.explore-clients {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.explore-clients__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.client-card {
+  background: var(--bg-surface);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--glass-shadow);
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+}
+
+.client-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--glow-shadow);
+  border-color: var(--glass-border-hover);
+}
+
+.primary-btn {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 1rem;
+  border-radius: var(--radius-pill);
+  border: none;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.primary-btn:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.primary-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

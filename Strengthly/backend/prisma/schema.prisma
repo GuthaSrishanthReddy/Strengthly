@@ -1,0 +1,186 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String          @id @default(uuid())
+  name            String
+  email           String          @unique
+  password        String
+  role            Role
+  complianceScore Int             @default(100)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  activityType    ActivityType
+  fitnessGoal     FitnessGoal
+  fitnessLevel    FitnessLevel
+  clientLinks     ClientTrainer[]
+  messages        Message[]
+  plans           Plan?
+  progress        Progress[]
+  trainerProfile  Trainer?
+  conversations   Conversation[]  @relation("ConversationParticipants")
+}
+
+model Trainer {
+  id              String          @id @default(uuid())
+  userId          String          @unique
+  qualifications  String[]
+  expertise       String[]
+  experienceYears Int
+  rating          Float?
+  createdAt       DateTime        @default(now())
+  clients         ClientTrainer[]
+  user            User            @relation(fields: [userId], references: [id])
+}
+
+model ClientTrainer {
+  id        String   @id @default(uuid())
+  trainerId String
+  userId    String
+  createdAt DateTime @default(now())
+  trainer   Trainer  @relation(fields: [trainerId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([trainerId, userId])
+}
+
+model Progress {
+  id                 String   @id @default(uuid())
+  userId             String
+  weight             Float
+  bodyFat            Float
+  muscleMass         Float?
+  waistCircumference Float?
+  systolicBP         Int
+  diastolicBP        Int
+  restingHeartRate   Int
+  fastingSugar       Float?
+  postPrandialSugar  Float?
+  hba1c              Float?
+  creatinine         Float
+  urea               Float?
+  uricAcid           Float?
+  totalCholesterol   Float?
+  ldl                Float?
+  hdl                Float?
+  triglycerides      Float?
+  proteinIntake      Float?
+  creatineIntake     Float?
+  workoutFrequency   Int
+  workoutDuration    Int
+  cardioMinutes      Int
+  sleepHours         Float
+  stressLevel        Int
+  notes              String?
+  createdAt          DateTime @default(now())
+  user               User     @relation(fields: [userId], references: [id])
+
+  @@index([userId, createdAt])
+}
+
+model Plan {
+  id             String       @id @default(uuid())
+  userId         String       @unique
+  calories       Int
+  protein        Int
+  carbs          Int
+  fats           Int
+  workoutPlan    String
+  meditationPlan String?
+  supplementPlan String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  activity       ActivityType
+  level          FitnessLevel
+  goal           FitnessGoal
+  user           User         @relation(fields: [userId], references: [id])
+}
+
+model Message {
+  id             String       @id @default(uuid())
+  conversationId String
+  senderId       String
+  content        String
+  createdAt      DateTime     @default(now())
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  sender         User         @relation(fields: [senderId], references: [id])
+}
+
+model Conversation {
+  id           String    @id @default(uuid())
+  createdAt    DateTime  @default(now())
+  messages     Message[]
+  participants User[]    @relation("ConversationParticipants")
+}
+
+model DocumentEmbedding {
+  id        String                @id @default(uuid())
+  userId    String
+  source    String
+  content   String
+  embedding Unsupported("vector")
+  createdAt DateTime              @default(now())
+}
+
+model GoalActivityRule {
+  id       String       @id @default(uuid())
+  goal     FitnessGoal
+  activity ActivityType
+  minLevel FitnessLevel
+
+  @@unique([goal, activity])
+  @@index([goal])
+  @@index([goal, minLevel])
+}
+
+enum Role {
+  USER
+  TRAINER
+}
+
+enum FitnessGoal {
+  FAT_LOSS
+  WEIGHT_GAIN
+  MUSCLE_GAIN
+  MAINTENANCE
+  STRENGTH_INCREASE
+  ENDURANCE_INCREASE
+  FLEXIBILITY
+  MOBILITY
+  BALANCE
+  ATHLETIC_PERFORMANCE
+  PHYSICAL_REHABILITATION
+}
+
+enum ActivityType {
+  WEIGHT_TRAINING
+  BODYWEIGHT
+  YOGA
+  PILATES
+  RUNNING
+  WALKING
+  HIKING
+  CYCLING
+  SWIMMING
+  CROSSFIT
+  HIIT
+  DANCE
+  MARTIAL_ARTS
+  SPORTS
+  HOME_WORKOUTS
+  OUTDOOR_TRAINING
+  MIXED_TRAINING
+}
+
+enum FitnessLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+  ATHLETE
+}

@@ -1,0 +1,61 @@
+.trainer-dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.trainer-dashboard-header {
+  margin-bottom: 2rem;
+}
+
+.trainer-dashboard-header h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  background: var(--gradient-neon);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.trainer-dashboard-header p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+}
+
+.trainer-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.trainer-dashboard-card {
+  background: var(--bg-surface);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  cursor: pointer;
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+  box-shadow: var(--glass-shadow);
+}
+
+.trainer-dashboard-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--glow-shadow);
+  border-color: var(--glass-border-hover);
+}
+
+.trainer-dashboard-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+  font-family: var(--font-display);
+}
+
+.trainer-dashboard-card p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
