@@ -63,8 +63,8 @@ export const ragService = {
 
     const prompt = `
 You are a helpful fitness and nutrition assistant.
-Answer ONLY using the context below.
-If the context is insufficient, say "Not enough data".
+Use the Context below to inform your answer if it's relevant to the Question.
+If the Context is missing or insufficient, you must still answer the Question using your general knowledge about fitness, wellness, and nutrition.
 
 Context:
 ${context}
