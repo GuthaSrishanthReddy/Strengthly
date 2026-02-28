@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { fetchProgress } from "../../services/progress.service";
 import type { ProgressRecord } from "../../types/progress.types";
 import "./RecentProgress.css";
@@ -10,6 +11,7 @@ type RecentProgressProps = {
 export default function RecentProgress({
   title = "Recent Progress",
 }: RecentProgressProps) {
+  const navigate = useNavigate();
   const [history, setHistory] = useState<ProgressRecord[]>([]);
   const [error, setError] = useState("");
 
@@ -34,7 +36,16 @@ export default function RecentProgress({
 
   return (
     <section className="recent-progress">
-      <h3>{title}</h3>
+      <div className="recent-progress__header">
+        <h3>{title}</h3>
+        <button
+          type="button"
+          className="recent-progress__update-btn"
+          onClick={() => navigate("/user/progress")}
+        >
+          Update Progress
+        </button>
+      </div>
       {error && <p className="recent-progress__error">{error}</p>}
       {!error && !latest && (
         <p className="recent-progress__note">No progress updates yet.</p>

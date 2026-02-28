@@ -19,6 +19,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .plan-generate-btn {
@@ -32,6 +33,7 @@
   text-transform: uppercase;
   font-size: 0.75rem;
   box-shadow: 0 14px 24px rgba(31, 41, 55, 0.3);
+  margin-left: auto;
 }
 
 .plan-generate-btn:hover:not(:disabled) {

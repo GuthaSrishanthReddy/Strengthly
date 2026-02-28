@@ -13,6 +13,7 @@ import Signup from "../pages/public/Signup";
 
 /* User */
 import UpdateProgress from "../pages/user/UpdateProgress";
+import Progress from "../pages/user/Progress";
 import MyPlan from "../pages/user/MyPlan";
 import MyTrainer from "../pages/user/MyTrainer";
 import ExploreTrainers from "../pages/user/ExploreTrainers";
@@ -76,7 +77,8 @@ const AppRoutes = () => {
         <Route index element={<Navigate to="home" replace />} />
         <Route path="home" element={<UserHome />} />
         <Route path="plan" element={<MyPlan />} />
-        <Route path="progress" element={<UpdateProgress />} />
+        <Route path="progress" element={<Progress />} />
+        <Route path="progress/update" element={<UpdateProgress />} />
         <Route path="my-trainer" element={<MyTrainer />} />
         <Route path="explore-trainers" element={<ExploreTrainers />} />
         <Route path="profile" element={<Profile />} />
