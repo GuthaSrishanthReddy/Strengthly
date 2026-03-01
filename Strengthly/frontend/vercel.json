@@ -1,8 +1,14 @@
 {
     "rewrites": [
         {
-            "source": "/(.*)",
-            "destination": "/index.html"
+            "source": "/api/:path*",
+            "destination": "https://your-backend-url/api/:path*"
+        }
+    ],
+    "routes": [
+        {
+            "src": "^/(?!api/).*$",
+            "dest": "/index.html"
         }
     ],
     "cleanUrls": true,
