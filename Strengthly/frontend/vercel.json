@@ -3,12 +3,10 @@
         {
             "source": "/api/:path*",
             "destination": "https://your-backend-url/api/:path*"
-        }
-    ],
-    "routes": [
+        },
         {
-            "src": "^/(?!api/).*$",
-            "dest": "/index.html"
+            "source": "/(.*)",
+            "destination": "/index.html"
         }
     ],
     "cleanUrls": true,

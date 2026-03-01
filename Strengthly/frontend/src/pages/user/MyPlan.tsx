@@ -5,6 +5,8 @@ import {
   fetchLatestAiPlan,
   fetchLatestAiSupplements,
   generateAiPlan,
+  generateAiDiet,
+  generateAiSupplements,
 } from "../../services/routine.services";
 import type {
   DietItem,
@@ -21,7 +23,9 @@ const MyPlan = () => {
   const [planLoading, setPlanLoading] = useState(true);
   const [planGenerating, setPlanGenerating] = useState(false);
   const [dietLoading, setDietLoading] = useState(true);
+  const [dietGenerating, setDietGenerating] = useState(false);
   const [supplementLoading, setSupplementLoading] = useState(true);
+  const [supplementGenerating, setSupplementGenerating] = useState(false);
   const [planError, setPlanError] = useState("");
   const [planBanner, setPlanBanner] = useState("");
   const [dietError, setDietError] = useState("");
@@ -36,6 +40,7 @@ const MyPlan = () => {
       try {
         const planData = await fetchLatestAiPlan();
         if (isMounted) {
+          setPlan(planData);
           setPlan(planData);
           setPlanBanner("");
         }
@@ -92,6 +97,46 @@ const MyPlan = () => {
     }
   };
 
+  const handleGenerateDiet = async () => {
+    setDietError("");
+    setDietGenerating(true);
+    try {
+      const result = await generateAiDiet();
+      setDiet(result);
+      if (result.length === 0) {
+        setDietError("Generated meals were empty. Try again.");
+      }
+    } catch (error) {
+      const message =
+        error instanceof Error && error.message
+          ? error.message
+          : "Failed to generate meals";
+      setDietError(message);
+    } finally {
+      setDietGenerating(false);
+    }
+  };
+
+  const handleGenerateSupplements = async () => {
+    setSupplementError("");
+    setSupplementGenerating(true);
+    try {
+      const result = await generateAiSupplements();
+      setSupplements(result);
+      if (result.length === 0) {
+        setSupplementError("Generated supplements were empty. Try again.");
+      }
+    } catch (error) {
+      const message =
+        error instanceof Error && error.message
+          ? error.message
+          : "Failed to generate supplements";
+      setSupplementError(message);
+    } finally {
+      setSupplementGenerating(false);
+    }
+  };
+
   return (
     <div className="my-plan">
       <h2>My Plan</h2>
@@ -109,9 +154,20 @@ const MyPlan = () => {
         loading={dietLoading}
         error={dietError}
         diet={diet}
+        generating={dietGenerating}
+        onGenerateDiet={handleGenerateDiet}
       />
-      <section>
-        <h3>Supplements</h3>
+      <section className="my-plan__section">
+        <div className="section-header">
+          <h3>Supplements</h3>
+          <button
+            className="generate-btn"
+            onClick={handleGenerateSupplements}
+            disabled={supplementGenerating || supplementLoading}
+          >
+            {supplementGenerating ? "Generating..." : "Generate Supplements"}
+          </button>
+        </div>
         <div className="workout-plan">
           {supplementLoading && <p>Loading supplements...</p>}
           {supplementError && <p className="error">{supplementError}</p>}

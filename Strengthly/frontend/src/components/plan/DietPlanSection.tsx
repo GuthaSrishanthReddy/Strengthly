@@ -4,12 +4,23 @@ type DietPlanSectionProps = {
   loading: boolean;
   error: string;
   diet: DietItem[];
+  generating?: boolean;
+  onGenerateDiet?: () => Promise<void>;
 };
 
-const DietPlanSection = ({ loading, error, diet }: DietPlanSectionProps) => {
+const DietPlanSection = ({ loading, error, diet, generating, onGenerateDiet }: DietPlanSectionProps) => {
   return (
     <section>
-      <h3>Meals</h3>
+      <div className="section-header">
+        <h3>Meals</h3>
+        <button
+          className="generate-btn"
+          onClick={onGenerateDiet}
+          disabled={generating || loading}
+        >
+          {generating ? "Generating..." : "Generate Diet Plan"}
+        </button>
+      </div>
       <div className="workout-plan">
         {loading && <p>Loading meals...</p>}
         {error && <p className="error">{error}</p>}
