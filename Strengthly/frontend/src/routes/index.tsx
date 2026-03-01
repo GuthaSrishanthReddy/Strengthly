@@ -8,6 +8,7 @@ import TrainerLayout from "../layouts/TrainerLayout";
 import PublicRoute from "./PublicRoute";
 import PublicLayout from "../layouts/PublicLayout";
 import Home from "../pages/public/Home";
+import Diet from "../pages/public/Diet";
 import Login from "../pages/public/Login";
 import Signup from "../pages/public/Signup";
 
