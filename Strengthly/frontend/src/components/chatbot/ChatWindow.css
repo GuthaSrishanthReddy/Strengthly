@@ -42,11 +42,7 @@
   letter-spacing: 0.05em;
   text-transform: uppercase;
   font-size: 1rem;
-  background: var(--gradient-neon);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
+  color: #35d0ff;
 }
 
 .chat-window__subtitle {

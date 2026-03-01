@@ -46,6 +46,16 @@ const AppRoutes = () => {
         }
       />
       <Route
+        path="/diet"
+        element={
+          <PublicRoute>
+            <PublicLayout>
+              <Diet />
+            </PublicLayout>
+          </PublicRoute>
+        }
+      />
+      <Route
         path="/login"
         element={
           <PublicRoute>
@@ -117,7 +127,7 @@ const AppRoutes = () => {
 
       {/* ❌ 404 */}
       <Route path="*" element={<div>Page not found</div>} />
-    </Routes>
+    </Routes >
   );
 };
 

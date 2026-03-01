@@ -1,6 +1,6 @@
 import { prisma } from "../config/db";
 import { createEmbedding } from "./embedding.service";
-import { env } from "../config/env";
+import { model } from "./model.service";
 import { embeddingStoreService } from "./embeddingStore.service";
 import { planTemplate } from "../utils/constants";
 import crypto from "crypto";
@@ -120,27 +120,8 @@ const normalizeDay = (value: unknown, index: number): WeekDay => {
 };
 
 const generatePlanContent = async (prompt: string) => {
-  const base = env.ML_SERVICE_URL.replace(/\/$/, "");
-  const response = await fetch(`${base}/generate`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt }),
-  });
-  if (!response.ok) {
-    const body = await response.text().catch(() => "");
-    throw new Error(
-      body
-        ? `ML service error (${response.status}): ${body}`
-        : `ML service error (${response.status})`
-    );
-  }
-  const payload = (await response.json()) as { text?: string };
-  const text = String(payload?.text ?? "");
-  return {
-    response: {
-      text: () => text,
-    },
-  };
+  const result = await model.generateContent(prompt);
+  return result;
 };
 
 const groupPlanByDay = (
@@ -522,14 +503,14 @@ ${retrievedContext || "none"}
         `;
       }
 
+      console.log("FINAL_PLAN_ITEMS (Emergency Fallback):", JSON.stringify(emergencyPlan, null, 2));
       return {
         plan: emergencyPlan,
         usedFallback: true,
-        banner: "AI response was invalid. A safe fallback plan was generated.",
       };
     }
 
-    console.log("Generated plan items:", planItems);
+    console.log("FINAL_PLAN_ITEMS:", JSON.stringify(planItems, null, 2));
     const planText = JSON.stringify(planItems);
 
     const user = await prisma.user.findUnique({

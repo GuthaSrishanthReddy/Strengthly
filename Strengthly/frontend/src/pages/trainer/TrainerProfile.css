@@ -83,13 +83,13 @@
 }
 
 .trainer-profile__btn--primary {
-  background: var(--gradient-neon);
+  background: #35d0ff;
   border: none;
   box-shadow: 0 4px 15px rgba(157, 78, 221, 0.4);
 }
 
 .trainer-profile__btn--primary:hover {
-  background: var(--gradient-neon);
+  background: #35d0ff;
   border: none;
   box-shadow: 0 6px 20px rgba(255, 0, 85, 0.4);
   transform: translateY(-2px);

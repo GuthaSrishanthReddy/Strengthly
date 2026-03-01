@@ -3,7 +3,7 @@
   overflow: hidden;
   border-radius: 22px;
   border: 1px solid rgba(148, 163, 184, 0.28);
-  background: linear-gradient(150deg, rgba(20, 28, 40, 0.92), rgba(11, 16, 26, 0.9));
+  background: rgba(20, 28, 40, 0.92);
   box-shadow: 0 20px 42px rgba(2, 8, 20, 0.42);
 }
 
@@ -14,7 +14,7 @@
   border-radius: 50%;
   top: -100px;
   right: -90px;
-  background: radial-gradient(circle, rgba(53, 208, 255, 0.25), transparent 65%);
+  background: rgba(53, 208, 255, 0.25);
   pointer-events: none;
 }
 

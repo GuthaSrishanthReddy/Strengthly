@@ -14,10 +14,7 @@
   pointer-events: none;
   z-index: 0;
   opacity: 0.42;
-  background-image:
-    linear-gradient(rgba(148, 163, 184, 0.34) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148, 163, 184, 0.34) 1px, transparent 1px);
-  background-size: 42px 42px;
+  background-color: rgba(148, 163, 184, 0.17);
 }
 
 .public-layout__particles {

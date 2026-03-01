@@ -22,7 +22,7 @@
 
 .recent-progress__update-btn {
   border: 1px solid transparent;
-  background: var(--btn-gradient);
+  background: #38bdf8;
   color: #f8fafc;
   padding: 0.55rem 0.95rem;
   border-radius: 10px;

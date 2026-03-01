@@ -1,0 +1,20 @@
+.diet-page {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.diet-page h1 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.diet-page ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.diet-page li {
+  margin-bottom: 0.5rem;
+}

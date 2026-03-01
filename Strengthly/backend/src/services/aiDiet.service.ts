@@ -126,6 +126,18 @@ If you cannot use the history, return a generic 1-day meal plan with 4 items.
       dietItems = aiDietService.parseDietItems(retryRaw);
     }
 
+    // Ensure static diet is always printed
+    if (dietItems.length === 0) {
+      dietItems = [
+        { "meal": "Breakfast", "items": "Oatmeal with fruits and nuts", "notes": "High protein and fiber" },
+        { "meal": "Snack", "items": "Greek yogurt", "notes": "Protein-rich" },
+        { "meal": "Lunch", "items": "Grilled chicken salad with quinoa", "notes": "Balanced meal" },
+        { "meal": "Snack", "items": "Apple slices with peanut butter", "notes": "Healthy fats and carbs" },
+        { "meal": "Dinner", "items": "Baked salmon, steamed broccoli, and sweet potatoes", "notes": "Omega-3 and vitamins" }
+      ];
+    }
+    console.log("FINAL_DIET_ITEMS:", JSON.stringify(dietItems, null, 2));
+
     const dietText = JSON.stringify(dietItems);
     const hasDietEmbedding = await embeddingStoreService.hasExactContent(
       userId,
