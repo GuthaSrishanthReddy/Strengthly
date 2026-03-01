@@ -80,7 +80,18 @@ export const aiDietService = {
   async getLatestDiet(userId: string) {
     const latest = await embeddingStoreService.getLatestBySource(userId, "diet");
 
-    if (!latest) return [];
+    if (!latest) {
+      // Return static fallback diet if no diet has been generated yet
+      const staticDiet = [
+        { "meal": "Breakfast", "items": "Oatmeal with fruits and nuts", "notes": "High protein and fiber" },
+        { "meal": "Snack", "items": "Greek yogurt", "notes": "Protein-rich" },
+        { "meal": "Lunch", "items": "Grilled chicken salad with quinoa", "notes": "Balanced meal" },
+        { "meal": "Snack", "items": "Apple slices with peanut butter", "notes": "Healthy fats and carbs" },
+        { "meal": "Dinner", "items": "Baked salmon, steamed broccoli, and sweet potatoes", "notes": "Omega-3 and vitamins" }
+      ];
+      console.log("STATIC_DIET_FALLBACK:", JSON.stringify(staticDiet, null, 2));
+      return staticDiet;
+    }
     return aiDietService.parseDietItems(latest.content);
   },
 
