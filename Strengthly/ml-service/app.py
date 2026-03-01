@@ -783,7 +783,7 @@ def _chat_answer(prompt: str) -> str:
                     summary.append(f"{day}: {focus} ({len(workouts)} exercises)")
             return (
                 f"This is a {train_days}-day split with planned rest/recovery days. "
-                + " | ".join(summary[:5])
+                + " | ".join(summary)
             )
 
     return (

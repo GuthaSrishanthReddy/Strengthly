@@ -13,6 +13,21 @@
   box-shadow: var(--glass-shadow);
 }
 
+.chat-message__bubble p {
+  margin: 0;
+}
+
+.chat-message__bubble p+p,
+.chat-message__bubble ul,
+.chat-message__bubble ol {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+.chat-message__bubble li {
+  margin-left: 1.25rem;
+}
+
 .chat-message--bot .chat-message__bubble {
   background: rgba(0, 240, 255, 0.1);
   color: var(--text-primary);
